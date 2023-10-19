@@ -1,0 +1,21 @@
+version: '3'
+services:
+    redroid11:
+        image: redroid/redroid:11.0.0-latest
+        container_name: redroid11
+        privileged: true
+        expose:
+            - 5555
+        ports:
+            - 5556:5555
+        volumes:
+            - ~/tdata:/data
+            - ./magisk/remove.rc:/vendor/etc/init/remove.rc
+            - ./magisk/setup.sh:/setup.sh
+            - ./magisk/magisk.tar:/magisk.tar
+        command: 
+            ro.secure=0 redroid.gpu.mode=guest redroid.net.ndns=114.114.114.114
+        networks:
+            - redroid
+networks:
+  redroid:
